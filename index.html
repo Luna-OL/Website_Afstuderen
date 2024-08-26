@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swipe it away!</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Merriweather:wght@400;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Merriweather', serif;
@@ -240,7 +239,7 @@
     <h1 id="title">Swipe it away!</h1>
 
     <div id="video-container">
-        <iframe id="video-frame" src="https://www.youtube.com/embed/llpDGzLSWzI?autoplay=1&enablejsapi=1"
+        <iframe id="video-frame" src="https://www.youtube.com/embed/Yh7C9ExU3O4?autoplay=1&enablejsapi=1"
             frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
 
@@ -291,7 +290,7 @@
             var levensduur = 80;
 
             if (isNaN(urenPerDag) || isNaN(leeftijdBegin) || isNaN(huidigeLeeftijd)) {
-                alert("Vul alstublieft alle velden correct in.");
+                alert("Vul alle velden in met geldige getallen.");
                 return;
             }
 
@@ -303,7 +302,7 @@
             document.getElementById('resultaat').innerText =
                 `Je hebt momenteel ongeveer ${urenOpTelefoonTotNuToe.toFixed(2)} uur op je telefoon doorgebracht, ` +
                 `wat neerkomt op ${percentageVanLevenTotNuToe.toFixed(2)}% van je leven tot nu toe.\n\n` +
-                `Als je 80 jaar oud wordt, zou je ongeveer ${urenOpTelefoonTot80.toFixed(2)} jaar op je telefoon doorbrengen, ` +
+                `Als je 80 jaar oud wordt, zou je ongeveer ${urenOpTelefoonTot80.toFixed(2)} uur op je telefoon doorbrengen, ` +
                 `wat ongeveer ${percentageVanLevenTot80.toFixed(2)}% van je totale leven zou zijn.`;
 
             var feedback = "";
