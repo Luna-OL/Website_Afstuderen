@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="nl">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Swipe it away!</title>
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Merriweather:wght@400;700&display=swap"
+        rel="stylesheet">
     <style>
         body {
             font-family: 'Merriweather', serif;
@@ -19,70 +21,82 @@
             justify-content: center;
             min-height: 100vh;
             text-align: center;
-            overflow-y: auto; /* Hiermee kun je scrollen als er veel inhoud is */
+            overflow-y: auto;
         }
+
         h1 {
             font-family: 'Luckiest Guy', sans-serif;
-            font-size: 72px; /* Nog grotere titel */
+            font-size: 4rem;
+            /* Grotere fontgrootte voor desktop */
             color: #222;
             margin-bottom: 20px;
-            transition: opacity 0.5s ease; /* Smooth overgang voor titel */
+            transition: opacity 0.5s ease;
         }
+
         #video-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            width: 100vw; /* Volledige breedte van het scherm */
-            height: 100vh; /* Volledige hoogte van het scherm */
-            position: absolute;
-            top: 0;
-            left: 0;
-            overflow: hidden; /* Voorkomt scrollen */
-            z-index: 1; /* Zorg ervoor dat de video boven andere elementen staat */
+            width: 100vw;
+            height: 50vh;
+            /* Aangepast voor mobiele apparaten */
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
         }
+
         #video-frame {
-            width: 100vw; /* Volledige breedte van het scherm */
-            height: 100vh; /* Volledige hoogte van het scherm */
+            width: 100%;
+            height: 100%;
             position: absolute;
             top: 0;
             left: 0;
-            object-fit: cover; /* Zorgt ervoor dat de video het scherm opvult */
+            object-fit: cover;
         }
+
         #calculator {
             display: none;
-            max-width: 700px;
+            max-width: 800px;
+            /* Max breedte voor desktop */
             background-color: #fff;
-            padding: 25px;
+            padding: 20px;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             margin: 20px auto;
             text-align: left;
-            min-height: 300px;
             position: relative;
-            z-index: 2; /* Zorg ervoor dat de calculator boven de video staat */
+            z-index: 2;
         }
+
         label {
             font-weight: 700;
-            font-size: 18px;
+            font-size: 1.2rem;
+            /* Grotere fontgrootte voor desktop */
             color: #444;
             display: block;
-            margin: 15px 0 5px;
+            margin: 10px 0 5px;
         }
-        input, button {
+
+        input,
+        button {
             width: calc(100% - 24px);
             padding: 12px;
             margin: 10px 0;
             border: 2px solid #333;
             border-radius: 6px;
-            font-size: 16px;
+            font-size: 1rem;
+            /* Grotere fontgrootte voor desktop */
             background-color: #fafafa;
             box-sizing: border-box;
             transition: border-color 0.3s ease;
         }
-        input:focus, button:focus {
+
+        input:focus,
+        button:focus {
             border-color: #555;
             outline: none;
         }
+
         button {
             background-color: #333;
             color: #fff;
@@ -90,56 +104,73 @@
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
+
         button:hover {
             background-color: #555;
             transform: scale(1.05);
         }
+
         p {
             margin: 15px 0;
-            font-size: 18px;
+            font-size: 1rem;
+            /* Grotere fontgrootte voor desktop */
         }
+
         #feedback {
             font-weight: normal;
             padding: 10px;
             border-radius: 6px;
-            font-size: 18px;
-            line-height: 1.6; /* Verbetert de leesbaarheid */
-            white-space: pre-wrap; /* Zorgt voor correcte nieuwe regels in tekst */
+            font-size: 1rem;
+            /* Grotere fontgrootte voor desktop */
+            line-height: 1.6;
+            white-space: pre-wrap;
         }
+
         .feedback-negatief {
             color: red;
             background-color: #fee;
         }
+
         .feedback-oranje {
             color: orange;
             background-color: #ffe;
         }
+
         .feedback-positief {
             color: green;
             background-color: #e8f5e9;
         }
+
         #resultaat {
             font-weight: normal;
         }
+
         .tips {
             margin-top: 15px;
-            font-size: 15px; /* Iets grotere tekst voor de tips */
-            line-height: 1.6; /* Verbetert de leesbaarheid */
+            font-size: 1rem;
+            /* Grotere fontgrootte voor desktop */
+            line-height: 1.6;
         }
+
         .tips p {
-            margin-bottom: 10px; /* Eén regel witruimte tussen de tips */
-            font-size: 15px; /* Iets grotere tekst voor de tips */
+            margin-bottom: 10px;
+            font-size: 1rem;
+            /* Grotere fontgrootte voor desktop */
         }
+
         .feedback-header {
-            font-size: 20px; /* Groter lettertype voor de waarschuwingstekst */
+            font-size: 1.2rem;
+            /* Grotere fontgrootte voor desktop */
             font-weight: bold;
             margin-bottom: 10px;
         }
+
         #replay-button {
-            display: none; /* Standaard niet zichtbaar */
+            display: none;
             margin-top: 20px;
             padding: 10px 20px;
-            font-size: 16px;
+            font-size: 1rem;
+            /* Grotere fontgrootte voor desktop */
             background-color: #333;
             color: #fff;
             border: none;
@@ -147,29 +178,82 @@
             cursor: pointer;
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
+
         #replay-button:hover {
             background-color: #555;
             transform: scale(1.05);
         }
+
+        /* Media Queries voor Mobiele Apparaten */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 5vw;
+                /* Kleinere fontgrootte voor mobiele apparaten */
+            }
+
+            #video-container {
+                height: 40vh;
+                /* Kleinere hoogte voor mobiele apparaten */
+            }
+
+            #calculator {
+                max-width: 90%;
+                /* Max breedte voor mobiele apparaten */
+                padding: 15px;
+            }
+
+            label {
+                font-size: 4vw;
+                /* Kleinere fontgrootte voor labels op mobiele apparaten */
+            }
+
+            input,
+            button {
+                font-size: 4vw;
+                /* Kleinere fontgrootte voor invoervelden en knoppen op mobiele apparaten */
+            }
+
+            p {
+                font-size: 4vw;
+                /* Kleinere fontgrootte voor paragraafteksten op mobiele apparaten */
+            }
+
+            #feedback {
+                font-size: 4vw;
+                /* Kleinere fontgrootte voor feedback op mobiele apparaten */
+            }
+
+            .feedback-header {
+                font-size: 5vw;
+                /* Kleinere fontgrootte voor feedbackkopteksten op mobiele apparaten */
+            }
+
+            #replay-button {
+                font-size: 4vw;
+                /* Kleinere fontgrootte voor knoppen op mobiele apparaten */
+            }
+        }
     </style>
 </head>
+
 <body>
     <h1 id="title">Swipe it away!</h1>
-    
+
     <div id="video-container">
-        <iframe id="video-frame" src="https://www.youtube.com/embed/llpDGzLSWzI" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <iframe id="video-frame" src="https://www.youtube.com/embed/llpDGzLSWzI?autoplay=1&enablejsapi=1"
+            frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
     </div>
 
     <div id="calculator">
         <label for="urenPerDag">Uren per dag op je telefoon:</label>
         <input type="number" id="urenPerDag" placeholder="Voer uren per dag in">
-        
+
         <label for="leeftijdBegin">Leeftijd toen je je telefoon kreeg:</label>
         <input type="number" id="leeftijdBegin" placeholder="Voer leeftijd in">
-        
+
         <label for="huidigeLeeftijd">Huidige leeftijd:</label>
         <input type="number" id="huidigeLeeftijd" placeholder="Voer huidige leeftijd in">
-        
+
         <button onclick="bereken()">Bereken</button>
         <p id="resultaat"></p>
         <div id="feedback"></div>
@@ -195,8 +279,8 @@
             if (event.data === YT.PlayerState.ENDED) {
                 document.getElementById('video-container').style.display = 'none';
                 calculator.style.display = 'block';
-                title.style.opacity = '1'; // Herstel de titel wanneer de video is afgelopen
-                replayButton.style.display = 'block'; // Toon de replay knop
+                title.style.opacity = '1';
+                replayButton.style.display = 'block';
             }
         }
 
@@ -206,62 +290,57 @@
             var huidigeLeeftijd = parseFloat(document.getElementById('huidigeLeeftijd').value);
             var levensduur = 80;
 
-            if (isNaN(urenPerDag) || isNaN(leeftijdBegin) || isNaN(huidigeLeeftijd) || leeftijdBegin >= huidigeLeeftijd) {
-                document.getElementById('resultaat').innerText = 'Voer geldige gegevens in.';
+            if (isNaN(urenPerDag) || isNaN(leeftijdBegin) || isNaN(huidigeLeeftijd)) {
+                alert("Vul alstublieft alle velden correct in.");
                 return;
             }
 
-            var jarenOpTelefoonTotNuToe = huidigeLeeftijd - leeftijdBegin;
-            var urenPerJaar = urenPerDag * 365;
-            var totaalUrenOpTelefoonTotNuToe = urenPerJaar * jarenOpTelefoonTotNuToe;
-            var jarenVerspildTotNuToe = totaalUrenOpTelefoonTotNuToe / (365 * 24);
+            var urenOpTelefoonTotNuToe = (huidigeLeeftijd - leeftijdBegin) * 365.25 * urenPerDag;
+            var urenOpTelefoonTot80 = (levensduur - huidigeLeeftijd) * 365.25 * urenPerDag;
+            var percentageVanLevenTotNuToe = (urenOpTelefoonTotNuToe / (huidigeLeeftijd * 365.25 * 24)) * 100;
+            var percentageVanLevenTot80 = (urenOpTelefoonTot80 / (levensduur * 365.25 * 24)) * 100;
 
-            var totaleLevensurenTotNuToe = huidigeLeeftijd * 365 * 24;
-            var percentageVanLevenTotNuToe = (totaalUrenOpTelefoonTotNuToe / totaleLevensurenTotNuToe) * 100;
-
-            var jarenTot80 = levensduur - leeftijdBegin;
-            var totaalUrenTot80 = urenPerJaar * jarenTot80;
-            var jarenOpTelefoonTot80 = totaalUrenTot80 / (365 * 24);
-            var percentageVanLevenTot80 = (totaalUrenTot80 / (levensduur * 365 * 24)) * 100;
-
-            document.getElementById('resultaat').innerText = 
-                `Je hebt tot nu toe ongeveer ${jarenVerspildTotNuToe.toFixed(2)} jaar op je telefoon doorgebracht, ` +
+            document.getElementById('resultaat').innerText =
+                `Je hebt momenteel ongeveer ${urenOpTelefoonTotNuToe.toFixed(2)} uur op je telefoon doorgebracht, ` +
                 `wat neerkomt op ${percentageVanLevenTotNuToe.toFixed(2)}% van je leven tot nu toe.\n\n` +
-                `Als je 80 jaar oud wordt, zou je ongeveer ${jarenOpTelefoonTot80.toFixed(2)} jaar op je telefoon doorbrengen, ` +
-                `wat ongeveer ${percentageVanLevenTot80.toFixed(2)}% van je totale leven zou zijn.`; 
+                `Als je 80 jaar oud wordt, zou je ongeveer ${urenOpTelefoonTot80.toFixed(2)} jaar op je telefoon doorbrengen, ` +
+                `wat ongeveer ${percentageVanLevenTot80.toFixed(2)}% van je totale leven zou zijn.`;
 
             var feedback = "";
             if (urenPerDag > 6) {
-                feedback = `<span class="feedback-header">Je zit momenteel boven het gemiddelde van 6 uur per dag. Overweeg om je schermtijd te verminderen om meer tijd vrij te maken voor andere activiteiten.</span>\n\n` +
-                `<div class="tips">` +
-                `<p><strong>Tips:</strong></p>` +
-                `<p>Praat erover: Praat met je ouders, docenten of contacteer de GGD als je denkt dat je te veel tijd op je telefoon doorbrengt en hulp nodig hebt om dit te verminderen.</p>` +
-                `<p>Gebruik schermtijdbeperkingen: Stel limieten in voor het gebruik van bepaalde apps via instellingen of via apps zoals Screen Time of Digital Wellbeing.</p>` +
-                `<p>Maak een schema: Plan specifieke tijden waarop je je telefoon niet gebruikt, bijvoorbeeld tijdens maaltijden of voor het slapen gaan.</p>` +
-                `<p>Probeer een digitale detox: Neem een pauze van je telefoon voor een dag of weekend en focus op offline activiteiten.</p>` +
-                `<p>Zet meldingen uit: Schakel meldingen uit voor apps die niet essentieel zijn, zodat je minder snel wordt afgeleid.</p>` +
-                `<p>Laat je telefoon niet mee naar je slaapkamer: Probeer je telefoon buiten je slaapkamer te houden tijdens het slapen om een betere nachtrust te bevorderen.</p>` +
-                `<p>Verander je gewoonte: Probeer een gewoonte te creëren waarbij je je telefoon minder vaak pakt en meer interactie hebt met mensen in je omgeving.</p>` +
-                `</div>`;
+                feedback =
+                    `<span class="feedback-header">Je zit momenteel boven het gemiddelde van 6 uur per dag. Overweeg om je schermtijd te verminderen om meer tijd vrij te maken voor andere activiteiten.</span>\n\n` +
+                    `<div class="tips">` +
+                    `<p><strong>Tips:</strong></p>` +
+                    `<p>Praat erover: Praat met je ouders, docenten of contacteer de GGD als je denkt dat je te veel tijd op je telefoon doorbrengt en hulp nodig hebt om dit te verminderen.</p>` +
+                    `<p>Gebruik schermtijdbeperkingen: Stel limieten in voor het gebruik van bepaalde apps via instellingen of via apps zoals Screen Time of Digital Wellbeing.</p>` +
+                    `<p>Maak een schema: Plan specifieke tijden waarop je je telefoon niet gebruikt, bijvoorbeeld tijdens maaltijden of voor het slapen gaan.</p>` +
+                    `<p>Probeer een digitale detox: Neem een pauze van je telefoon voor een dag of weekend en focus op offline activiteiten.</p>` +
+                    `<p>Zet meldingen uit: Schakel meldingen uit voor apps die niet essentieel zijn, zodat je minder snel wordt afgeleid.</p>` +
+                    `<p>Laat je telefoon niet mee naar je slaapkamer: Probeer je telefoon buiten je slaapkamer te houden tijdens het slapen om een betere nachtrust te bevorderen.</p>` +
+                    `<p>Verander je gewoonte: Probeer een gewoonte te creëren waarbij je je telefoon minder vaak pakt en meer interactie hebt met mensen in je omgeving.</p>` +
+                    `</div>`;
                 document.getElementById('feedback').className = 'feedback-negatief';
             } else if (urenPerDag >= 5) {
-                feedback = `<span class="feedback-header">Je zit momenteel tussen de 5 en 6 uur per dag op je telefoon, wat gemiddeld is. Denk erover na om je schermtijd te beheren zodat je niet boven dit gemiddelde uitkomt.</span>\n\n` +
-                `<div class="tips">` +
-                `<p><strong>Tips:</strong></p>` +
-                `<p>Blijf je schermtijd monitoren: Houd bij hoeveel tijd je aan je telefoon besteedt en probeer dit te verminderen indien nodig.</p>` +
-                `<p>Plan tijd voor andere activiteiten: Zorg voor een goede balans tussen je telefoongebruik en andere activiteiten zoals sociale interacties of studie.</p>` +
-                `<p>Gebruik nuttige apps: Maak gebruik van apps die je productiviteit verhogen of die je helpen bij het stellen van doelen en het beheren van je tijd.</p>` +
-                `</div>`;
+                feedback =
+                    `<span class="feedback-header">Je zit momenteel tussen de 5 en 6 uur per dag op je telefoon, wat gemiddeld is. Denk erover na om je schermtijd te beheren zodat je niet boven dit gemiddelde uitkomt.</span>\n\n` +
+                    `<div class="tips">` +
+                    `<p><strong>Tips:</strong></p>` +
+                    `<p>Blijf je schermtijd monitoren: Houd bij hoeveel tijd je aan je telefoon besteedt en probeer dit te verminderen indien nodig.</p>` +
+                    `<p>Plan tijd voor andere activiteiten: Zorg voor een goede balans tussen je telefoongebruik en andere activiteiten zoals sociale interacties of studie.</p>` +
+                    `<p>Gebruik nuttige apps: Maak gebruik van apps die je productiviteit verhogen of die je helpen bij het stellen van doelen en het beheren van je tijd.</p>` +
+                    `</div>`;
                 document.getElementById('feedback').className = 'feedback-oranje';
             } else {
-                feedback = `<span class="feedback-header">Goed bezig! Je schermtijd ligt onder het gemiddelde. Blijf op deze manier doorgaan en geniet van de extra tijd voor andere activiteiten.</span>\n\n` +
-                `<div class="tips">` +
-                `<p><strong>Tips:</strong></p>` +
-                `<p>Zorg voor fysieke activiteit: Zorg ervoor dat je genoeg beweegt en deelneemt aan buitensporten of andere fysieke activiteiten.</p>` +
-                `<p>Blijf sociaal actief: Onderhoud je sociale contacten en blijf betrokken bij activiteiten met vrienden en familie.</p>` +
-                `<p>Gebruik je schermtijd productief: Gebruik apps die je helpen bij het leren of het verbeteren van je vaardigheden.</p>` +
-                `<p>Blijf bewust: Hou je schermtijd in de gaten en zorg ervoor dat je een gezonde balans houdt tussen online en offline activiteiten.</p>` +
-                `</div>`;
+                feedback =
+                    `<span class="feedback-header">Goed bezig! Je schermtijd ligt onder het gemiddelde. Blijf op deze manier doorgaan en geniet van de extra tijd voor andere activiteiten.</span>\n\n` +
+                    `<div class="tips">` +
+                    `<p><strong>Tips:</strong></p>` +
+                    `<p>Zorg voor fysieke activiteit: Zorg ervoor dat je genoeg beweegt en deelneemt aan buitensporten of andere fysieke activiteiten.</p>` +
+                    `<p>Blijf sociaal actief: Onderhoud je sociale contacten en blijf betrokken bij activiteiten met vrienden en familie.</p>` +
+                    `<p>Gebruik je schermtijd productief: Gebruik apps die je helpen bij het leren of het verbeteren van je vaardigheden.</p>` +
+                    `<p>Blijf bewust: Hou je schermtijd in de gaten en zorg ervoor dat je een gezonde balans houdt tussen online en offline activiteiten.</p>` +
+                    `</div>`;
                 document.getElementById('feedback').className = 'feedback-positief';
             }
 
@@ -271,12 +350,11 @@
         function herstartVideo() {
             document.getElementById('video-container').style.display = 'flex';
             calculator.style.display = 'none';
-            title.style.display = 'none'; // Verberg de titel tijdens het afspelen van de video
-            replayButton.style.display = 'none'; // Verberg de replay knop
+            title.style.opacity = '1';
+            replayButton.style.display = 'none';
             player.seekTo(0);
             player.playVideo();
 
-            // Verwijder de resultaten en feedback
             document.getElementById('resultaat').innerText = '';
             document.getElementById('feedback').innerHTML = '';
             document.getElementById('urenPerDag').value = '';
@@ -290,4 +368,5 @@
         firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     </script>
 </body>
+
 </html>
