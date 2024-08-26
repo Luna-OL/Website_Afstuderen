@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telefoon vs. Leven: Hoeveel tijd spendeer jij echt?</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Merriweather:wght@400;700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Merriweather', serif;
+            background: linear-gradient(135deg, #f0f0f0, #d9d9d9);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        h1 {
+            font-family: 'Luckiest Guy', cursive;
+            font-size: 36px;
+            color: #222;
+            margin-bottom: 20px;
+        }
+
+        #video-container {
+            margin-bottom: 20px;
+            border: 8px solid #333;
+            border-radius: 12px;
+            padding: 5px;
+        }
+
+        #intro-video {
+            width: 1200px;
+            /* Vergrote video grootte */
+            height: 675px;
+        }
+
+        #calculator {
+            display: none;
+            max-width: 700px;
+            /* Breder tekstvak */
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            margin: 20px auto;
+            text-align: left;
+            min-height: 300px;
+            /* Voorkomt dat tekst te dicht bij de onderkant staat */
+            position: relative;
+        }
+
+        label {
+            font-weight: 700;
+            font-size: 18px;
+            color: #444;
+            display: block;
+            margin: 15px 0 5px;
+        }
+
+        input,
+        button {
+            width: calc(100% - 24px);
+            padding: 12px;
+            margin: 10px 0;
+            border: 2px solid #333;
+            border-radius: 6px;
+            font-size: 16px;
+            background-color: #fafafa;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus,
+        button:focus {
+            border-color: #555;
+            outline: none;
+        }
+
+        button {
+            background-color: #333;
+            color: #fff;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #555;
+            transform: scale(1.05);
+        }
+
+        p {
+            margin: 15px 0;
+            font-size: 18px;
+        }
+
+        #feedback {
+            font-weight: bold;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 16px;
+        }
+
+        .feedback-negatief {
+            color: red;
+            background-color: #fee;
+        }
+
+        .feedback-oranje {
+            color: orange;
+            background-color: #ffe;
+        }
+
+        .feedback-positief {
+            color: green;
+            background-color: #e8f5e9;
+        }
+
+        #resultaat {
+            font-weight: normal;
+        }
+
+        .tips {
+            margin-top: 15px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Telefoon vs. Leven: Hoeveel tijd spendeer jij echt?</h1>
+
+    <div id="video-container">
+        <video id="intro-video" controls>
+            <source src="intro.mp4" type="video/mp4">
+            Je browser ondersteunt de video tag niet.
+        </video>
+    </div>
+
+    <div id="calculator">
+        <label for="urenPerDag">Uren per dag op je telefoon:</label>
+        <input type="number" id="urenPerDag" placeholder="Voer uren per dag in">
+
+        <label for="leeftijdBegin">Leeftijd toen je je telefoon kreeg:</label>
+        <input type="number" id="leeftijdBegin" placeholder="Voer leeftijd in">
+
+        <label for="huidigeLeeftijd">Huidige leeftijd:</label>
+        <input type="number" id="huidigeLeeftijd" placeholder="Voer huidige leeftijd in">
+
+        <button onclick="bereken()">Bereken</button>
+        <p id="resultaat"></p>
+        <p id="feedback" class="tips"></p>
+    </div>
+
+    <script>
+        document.getElementById('intro-video').addEventListener('ended', function () {
+            document.getElementById('video-container').style.display = 'none';
+            document.getElementById('calculator').style.display = 'block';
+        });
+
+        function bereken() {
+            var urenPerDag = parseFloat(document.getElementById('urenPerDag').value);
+            var leeftijdBegin = parseFloat(document.getElementById('leeftijdBegin').value);
+            var huidigeLeeftijd = parseFloat(document.getElementById('huidigeLeeftijd').value);
+            var levensduur = 80;
+            var gemiddeldSchermTijd = 6; // Gemiddelde schermtijd van tieners in uren per dag
+
+            if (isNaN(urenPerDag) || isNaN(leeftijdBegin) || isNaN(huidigeLeeftijd) || leeftijdBegin >=
+                huidigeLeeftijd) {
+                document.getElementById('resultaat').innerText = 'Voer geldige gegevens in.';
+                return;
+            }
+
+            var jarenOpTelefoonTotNuToe = huidigeLeeftijd - leeftijdBegin;
+            var urenPerJaar = urenPerDag * 365;
+            var totaalUrenOpTelefoonTotNuToe = urenPerJaar * jarenOpTelefoonTotNuToe;
+
+            var totaleLevensurenTotNuToe = huidigeLeeftijd * 365 * 24;
+            var percentageVanLevenTotNuToe = (totaalUrenOpTelefoonTotNuToe / totaleLevensurenTotNuToe) * 100;
+
+            var jarenTot80 = levensduur - leeftijdBegin;
+            var totaalUrenTot80 = urenPerJaar * jarenTot80;
+            var jarenOpTelefoonTot80 = totaalUrenTot80 / (365 * 24);
+
+            var percentageVanLevenTot80 = (totaalUrenTot80 / (levensduur * 365 * 24)) * 100;
+
+            // Bereken het aantal jaren in plaats van uren voor de juiste weergave
+            var totaalJarenOpTelefoonTotNuToe = totaalUrenOpTelefoonTotNuToe / (365 * 24);
+
+            document.getElementById('resultaat').innerText =
+                `Tot nu toe heb je ongeveer ${totaalUrenOpTelefoonTotNuToe.toFixed(0)} uren op je telefoon doorgebracht. ` +
+                `Dat is ongeveer ${percentageVanLevenTotNuToe.toFixed(2)}% van je leven tot nu toe, wat neerkomt op ongeveer ${totaalJarenOpTelefoonTotNuToe.toFixed(2)} jaar.\n\n` +
+                `Als je 80 jaar oud wordt, zou je ongeveer ${jarenOpTelefoonTot80.toFixed(2)} jaar op je telefoon doorbrengen, ` +
+                `wat ongeveer ${percentageVanLevenTot80.toFixed(2)}% van je totale leven zou zijn.`;
+
+            // Feedback sectie
+            var feedback = "";
+            if (urenPerDag > 6) {
+                feedback =
+                    `Je zit momenteel boven het gemiddelde van 6 uur per dag. Overweeg om je schermtijd te verminderen om meer tijd vrij te maken voor andere activiteiten.\n\nTips:\n- Gebruik schermtijdbeperkingen op je telefoon om je gebruik te verminderen.\n- Plan specifieke schermvrije tijden in je dag, zoals tijdens maaltijden of voor het slapen gaan.\n- Zoek naar gezondere alternatieven zoals lezen of sporten.\n- Probeer activiteiten te vinden die je leuk vindt en die je zonder je telefoon kunt doen.`;
+                document.getElementById('feedback').className = 'feedback-negatief';
+            } else if (urenPerDag >= 5) {
+                feedback =
+                    `Je zit momenteel tussen de 5 en 6 uur per dag op je telefoon, wat gemiddeld is. Denk erover na om je schermtijd te beheren zodat je niet boven dit gemiddelde uitkomt.\n\nTips:\n- Blijf je schermtijd monitoren en probeer gezonde grenzen te stellen.\n- Zorg voor balans door tijd voor andere activiteiten in te plannen.\n- Gebruik technologie bewust en probeer nuttige apps te gebruiken die je schermtijd productiever maken.`;
+                document.getElementById('feedback').className = 'feedback-oranje';
+            } else {
+                feedback =
+                    `Goed bezig! Je schermtijd ligt onder het gemiddelde. Blijf op deze manier doorgaan en geniet van de extra tijd voor andere activiteiten.\n\nTips:\n- Zorg ervoor dat je genoeg fysieke activiteiten en sociale interacties hebt.\n- Blijf bewust omgaan met je schermtijd en hou het gebruik in balans.\n- Zoek naar manieren om je schermtijd nuttig te maken, zoals educatieve apps of productiviteitstools.`;
+                document.getElementById('feedback').className = 'feedback-positief';
+            }
+
+            document.getElementById('feedback').innerText = feedback;
+        }
+    </script>
+</body>
+
+</html>
